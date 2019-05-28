@@ -17,7 +17,7 @@ public class SalvoApplication {
 		SpringApplication.run(SalvoApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository) {
+	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository, SalvoRepository salvoRepository) {
 		return (args) -> {
 			// save a couple of players
 			Player player1 = new Player("j.bauer@ctu.gov");
@@ -60,7 +60,7 @@ public class SalvoApplication {
 			ships8.add(new Ship ("Submarine", Arrays.asList("A2", "A3", "A4")));
 			ships8.add(new Ship ("Patrol Boat", Arrays.asList("G6", "H6")));
 
-
+			//Add new Salvoes
 
 
 			playerRepository.save(player1);

@@ -24,8 +24,12 @@ public class GamePlayer {
     @JoinColumn(name = "game_id")
     private Game game;
 
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
+    Set<Salvo> salvos = new HashSet<>();
+
     @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Ship> ships = new HashSet<>();
+
 
 
     private LocalDateTime joinDate;
@@ -94,7 +98,12 @@ public class GamePlayer {
         dto.put("Gameplayers", this.game.getGamePlayers().stream()
                 .map(GamePlayer::makeGamePlayerDTO)
                 .collect(Collectors.toList()));
-        dto.put("Ships", this.ships.stream().map(Ship::makeShipDTO).collect(Collectors.toList()));
+        dto.put("Ships", this.ships.stream()
+                .map(Ship::makeShipDTO)
+                .collect(Collectors.toList()));
+        dto.put("Salvos", this.salvos.stream()
+                .map(Salvo::makeSalvoDTO)
+                .collect(Collectors.toList()));
         return dto;
     }
 
