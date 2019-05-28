@@ -21,7 +21,7 @@ public class SalvoApplication {
 		return (args) -> {
 			// save a couple of players
 			Player player1 = new Player("j.bauer@ctu.gov");
-			Player player2 = new Player("c.obrianctu.gov");
+			Player player2 = new Player("c.obrian@ctu.gov");
 			Player player3 = new Player("kim_bauer@gmail.com");
 			Player player4 = new Player("t.almeida@ctu.gov");
 

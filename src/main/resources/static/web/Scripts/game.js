@@ -58,6 +58,7 @@ fetch( "/api/game_view/"+gpID).then(function(response) {
     console.log(json.Ships);
     selectShips(json.Ships);
     gamePlayers(json.Gameplayers);
+
 //Obtain ship locations and print them in the grid
 
 }).catch(function(error) {
@@ -69,7 +70,7 @@ document.getElementById("date").innerHTML = new Date().toDateString();
 
 function selectShips (Ships){
     Ships.forEach(function(ship){
-        console.log(ship)
+        console.log(ship);
         ship.locations.forEach(function (location) {
             console.log(location);
             document.getElementById(location).classList.add("selected");
@@ -77,13 +78,21 @@ function selectShips (Ships){
     })
 }
 
-function gamePlayers (gameplayers){
-    Gameplayers.forEach(function(player){
-        console.log(Gameplayers);
-    })
+//Obtain players usernames and print in title
 
+function gamePlayers (Gameplayers){
+    Gameplayers.forEach(function(gameplayer){
+        console.log(gameplayer);
+        if(gameplayer.id == gpID){
+            console.log(gameplayer.player)
+
+            document.getElementById("username1").innerHTML = gameplayer.player.username;
+        } else {
+            document.getElementById("username2").innerHTML = gameplayer.player.username;
+        }
+
+})
 }
-
 
 
 
