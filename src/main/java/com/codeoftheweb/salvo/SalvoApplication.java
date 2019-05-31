@@ -62,6 +62,39 @@ public class SalvoApplication {
 
 			//Add new Salvoes
 
+			Set<Salvo> salvo1 = new HashSet<>();
+			salvo1.add(new Salvo("1", Arrays.asList("B5", "C5", "F1")));
+			salvo1.add(new Salvo("2", Arrays.asList("F2", "D5")));
+
+			Set<Salvo> salvo2 = new HashSet<>();
+			salvo2.add(new Salvo("1", Arrays.asList("B4", "B5", "B6")));
+			salvo2.add(new Salvo("2", Arrays.asList("E1", "H3", "A2")));
+
+			Set<Salvo> salvo3 = new HashSet<>();
+			salvo3.add(new Salvo("1", Arrays.asList("A2", "A4", "G6")));
+			salvo3.add(new Salvo("2", Arrays.asList("A3", "H6")));
+
+			Set<Salvo> salvo4 = new HashSet<>();
+			salvo4.add(new Salvo("1", Arrays.asList("B5", "D5", "C7")));
+			salvo4.add(new Salvo("2", Arrays.asList("C5", "C6")));
+
+			Set<Salvo> salvo5 = new HashSet<>();
+			salvo5.add(new Salvo("1", Arrays.asList("G6", "H6", "A4")));
+			salvo5.add(new Salvo("2", Arrays.asList("A2", "A3", "D8")));
+
+			Set<Salvo> salvo6 = new HashSet<>();
+			salvo6.add(new Salvo("1", Arrays.asList("H1", "H2", "H3")));
+			salvo6.add(new Salvo("2", Arrays.asList("E1", "F2", "G3")));
+
+			Set<Salvo> salvo7 = new HashSet<>();
+			salvo7.add(new Salvo("1", Arrays.asList("A3", "A4", "F7")));
+			salvo7.add(new Salvo("2", Arrays.asList("A2", "G6", "H6")));
+
+			Set<Salvo> salvo8 = new HashSet<>();
+			salvo8.add(new Salvo("1", Arrays.asList("B5", "C6", "H1")));
+			salvo8.add(new Salvo("2", Arrays.asList("C5", "C7", "D5")));
+
+
 
 			playerRepository.save(player1);
 			playerRepository.save(player2);
@@ -82,15 +115,14 @@ public class SalvoApplication {
 
 			// Add new Gameplayers
 
-			gamePlayerRepository.save(new GamePlayer(player1, game1, ships1));
-			gamePlayerRepository.save(new GamePlayer(player2, game1, ships2));
-			gamePlayerRepository.save(new GamePlayer(player3, game2, ships3));
-			gamePlayerRepository.save(new GamePlayer(player4, game2, ships4));
-			gamePlayerRepository.save(new GamePlayer(player2, game3, ships5));
-			gamePlayerRepository.save(new GamePlayer(player4, game3, ships6));
-			gamePlayerRepository.save(new GamePlayer(player2, game4, ships7));
-			gamePlayerRepository.save(new GamePlayer(player1, game4, ships8));
-
+			gamePlayerRepository.save(new GamePlayer(player1, game1, ships1, salvo1));
+			gamePlayerRepository.save(new GamePlayer(player2, game1, ships2, salvo2));
+			gamePlayerRepository.save(new GamePlayer(player3, game2, ships3, salvo3));
+			gamePlayerRepository.save(new GamePlayer(player4, game2, ships4, salvo4));
+			gamePlayerRepository.save(new GamePlayer(player2, game3, ships5, salvo5));
+			gamePlayerRepository.save(new GamePlayer(player4, game3, ships6, salvo6));
+			gamePlayerRepository.save(new GamePlayer(player2, game4, ships7, salvo7));
+			gamePlayerRepository.save(new GamePlayer(player1, game4, ships8, salvo8));
 
 
 		};

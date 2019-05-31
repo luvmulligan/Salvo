@@ -49,11 +49,10 @@ public class Salvo {
     public Map<String, Object> makeSalvoDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", id);
-        dto.put("locations", getSalvoLocations());
-        dto.put("player_id", getGamePlayer());
         dto.put("turn", turn);
+        dto.put ("locations", salvoLocations);
+        dto.put("player", getGamePlayer().getPlayer().makePlayerDTO());
         return dto;
-
     }
 }
 

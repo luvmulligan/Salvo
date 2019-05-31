@@ -24,8 +24,8 @@ public class GamePlayer {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
-    Set<Salvo> salvos = new HashSet<>();
+    @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Salvo> salvos = new HashSet<>();
 
     @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Ship> ships = new HashSet<>();
@@ -37,11 +37,12 @@ public class GamePlayer {
     public GamePlayer() {
     }
 
-    public GamePlayer(Player player, Game game, Set<Ship> ships) {
+    public GamePlayer(Player player, Game game, Set<Ship> ships, Set<Salvo> salvos) {
         this.player = player;
         this.game = game;
         this.addShips(ships);
         this.joinDate = LocalDateTime.now();
+        this.addSalvo(salvos);
     }
 
 
@@ -52,6 +53,16 @@ public class GamePlayer {
     public void addShip(Ship ship) {
         ship.setGamePlayer(this);
         this.ships.add(ship);
+    }
+
+
+    public void addSalvo(Set<Salvo> salvos) {
+        salvos.forEach(this::addSalvo);
+    }
+
+    public void addSalvo(Salvo salvo) {
+        salvo.setGamePlayer(this);
+        this.salvos.add(salvo);
     }
 
     public Player getPlayer() {
@@ -82,6 +93,9 @@ public class GamePlayer {
         return id;
     }
 
+    public Set<Salvo> getSalvos() {
+        return salvos;
+    }
 
     public Map<String, Object> makeGamePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
@@ -101,8 +115,8 @@ public class GamePlayer {
         dto.put("Ships", this.ships.stream()
                 .map(Ship::makeShipDTO)
                 .collect(Collectors.toList()));
-        dto.put("Salvos", this.salvos.stream()
-                .map(Salvo::makeSalvoDTO)
+        dto.put("Salvos", this.game.getGamePlayers().stream()
+                .flatMap(gamePlayer -> gamePlayer.getSalvos().stream().map(Salvo::makeSalvoDTO))
                 .collect(Collectors.toList()));
         return dto;
     }

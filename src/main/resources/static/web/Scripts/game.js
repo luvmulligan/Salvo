@@ -1,3 +1,7 @@
+var player = '';
+
+var enemy = '';
+
 $(document).ready(function () {
     $("#grid1 tbody").append(
         "<tr>" + "<th></th>" + "<th>1</th>" + "<th>2</th>" + "<th>3</th>" + "<th>4</th>"
@@ -39,6 +43,47 @@ $(document).ready(function () {
     );
 });
 
+$(document).ready(function () {
+    $("#grid2 tbody").append(
+        "<tr>" + "<th></th>" + "<th>1</th>" + "<th>2</th>" + "<th>3</th>" + "<th>4</th>"
+        + "<th>5</th>" + "<th>6</th>" + "<th>7</th>"
+        + "<th>8</th>" + "<th>9</th>" + "<th>10</th>"+
+        "</tr>" +
+        //Primera fila
+        "<tr>"+"<td>A</td>" + "<td id='SA1'></td>" + "<td id='SA2'></td>" + "<td id='SA3'></td>" + "<td id='SA4'></td>" + "<td id='SA5'></td>" + "<td id='SA6'></td>" + "<td id='SA7'></td>" + "<td id='SA8'></td>"+ "<td id='SA9'></td>" + "<td id='SA10'></td>"+
+        "</tr>"+
+        //Segunda fila
+        "<tr>" +"<td>B</td>"+"<td id='SB1'></td>" + "<td id='SB2'></td>" + "<td id='SB3'></td>" + "<td id='SB4'></td>" + "<td id='SB5'></td>" + "<td id='SB6'></td>" + "<td id='SB7'></td>" + "<td id='SB8'></td>"+ "<td id='SB9'></td>" + "<td id='SB10'></td>" +
+        "</tr>"+
+        //Tercer fila
+        "<tr>" +"<td>C</td>"+"<td id='SC1'></td>" + "<td id='SC2'></td>" + "<td id='SC3'></td>" + "<td id='SC4'></td>" + "<td id='SC5'></td>" + "<td id='SC6'></td>" + "<td id='SC7'></td>" + "<td id='SC8'></td>"+ "<td id='SC9'></td>" + "<td id='SC10'></td>" + +
+            "</tr>"+
+        //Cuarta fila
+        "<tr>" +"<td>D</td>"+"<td id='SD1'></td>" + "<td id='SD2'></td>" + "<td id='SD3'></td>" + "<td id='SD4'></td>" + "<td id='SD5'></td>" + "<td id='SD6'></td>" + "<td id='SD7'></td>" + "<td id='SD8'></td>"+ "<td id='SD9'></td>" + "<td id='SD10'></td>" +
+        "</tr>"+
+        //Quinta Fila
+        "<tr>" +"<td>E</td>"+"<td id='SE1'></td>" + "<td id='SE2'></td>" + "<td id='SE3'></td>" + "<td id='SE4'></td>" + "<td id='SE5'></td>" + "<td id='SE6'></td>" + "<td id='SE7'></td>" + "<td id='SE8'></td>"+ "<td id='SE9'></td>" + "<td id='SE10'></td>" +
+        "</tr>"+
+        //Sexta fila
+        "<tr>" +"<td>F</td>"+"<td id='SF1'></td>" + "<td id='SF2'></td>" + "<td id='SF3'></td>" + "<td id='SF4'></td>" + "<td id='SF5'></td>" + "<td id='SF6'></td>" + "<td id='SF7'></td>" + "<td id='SF8'></td>"+ "<td id='SF9'></td>" + "<td id='SF10'></td>" +
+        "</tr>"+
+        //Septima fila
+        "<tr>" +"<td>G</td>"+"<td id='SG1'></td>" + "<td id='SG2'></td>" + "<td id='SG3'></td>" + "<td id='SG4'></td>" + "<td id='SG5'></td>" + "<td id='SG6'></td>" + "<td id='SG7'></td>" + "<td id='SG8'></td>"+ "<td id='SG9'></td>" + "<td id='SG10'></td>" +
+        "</tr>"+
+        //Octava fila
+        "<tr>" +"<td>H</td>"+"<td id='SH1'></td>" + "<td id='SH2'></td>" + "<td id='SH3'></td>" + "<td id='SH4'></td>" + "<td id='SH5'></td>" + "<td id='SH6'></td>" + "<td id='SH7'></td>" + "<td id='SH8'></td>"+ "<td id='SH9'></td>" + "<td id='SH10'></td>" +
+        "</tr>"+
+        //Novena fila
+        "<tr>" +"<td>I</td>"+"<td id='SI1'></td>" + "<td id='SI2'></td>" + "<td id='SI3'></td>" + "<td id='SI4'></td>" + "<td id='SI5'></td>" + "<td id='SI6'></td>" + "<td id='SI7'></td>" + "<td id='SI8'></td>"+ "<td id='SI9'></td>" + "<td id='SI10'></td>" +
+        "</tr>"+
+        //Decima fila
+        "<tr>" +"<td>J</td>"+"<td id='SJ1'></td>" + "<td id='SJ2'></td>" + "<td id='SJ3'></td>" + "<td id='SJ4'></td>" + "<td id='SJ5'></td>" + "<td id='SJ6'></td>" + "<td id='SJ7'></td>" + "<td id='SJ8'></td>"+ "<td id='SJ9'></td>" + "<td id='SJ10'></td>" +
+        "</tr>"
+
+
+    );
+});
+
 function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -55,9 +100,10 @@ fetch( "/api/game_view/"+gpID).then(function(response) {
     throw new Error(response.statusText);
 
 }).then(function(json) {
-    console.log(json.Ships);
     selectShips(json.Ships);
     gamePlayers(json.Gameplayers);
+    shotFired(json.Salvos);
+    //shotTaken(json.Salvos);
 
 //Obtain ship locations and print them in the grid
 
@@ -78,6 +124,28 @@ function selectShips (Ships){
     })
 }
 
+function shotFired(Salvos){
+
+    Salvos.forEach(function(salvo){
+        console.log(salvo);
+        if (player.username == salvo.player.username){
+            salvo.locations.forEach(function (location){
+                console.log(location);
+                    document.getElementById('S'+location).classList.add("fired");
+
+            })
+        }else{
+            salvo.locations.forEach(function (location){
+                console.log(location);
+                document.getElementById(location).classList.add("fired");
+
+            })
+        }
+    })
+}
+
+
+
 //Obtain players usernames and print in title
 
 function gamePlayers (Gameplayers){
@@ -85,16 +153,16 @@ function gamePlayers (Gameplayers){
         console.log(gameplayer);
         if(gameplayer.id == gpID){
             console.log(gameplayer.player)
+            player = gameplayer.player;
 
             document.getElementById("username1").innerHTML = gameplayer.player.username;
         } else {
+            enemy = gameplayer.player;
             document.getElementById("username2").innerHTML = gameplayer.player.username;
         }
 
 })
 }
-
-
 
 
 

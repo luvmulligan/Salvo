@@ -16,6 +16,13 @@ public class SalvoController {
 
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
+    private ShipRepository shipRepository;
+
+    @Autowired
+    private SalvoRepository salvoRepository;
+    @Autowired
+    private GamePlayerRepository gamePlayerRepository;
 
     @RequestMapping("/games")
     public List<Map<String, Object>> getAll() {
@@ -25,8 +32,6 @@ public class SalvoController {
                 .collect(Collectors.toList());
     }
 
-    @Autowired
-    private ShipRepository shipRepository;
 
     @RequestMapping("/ships")
     public List<Map<String, Object>> getGames() {
@@ -37,14 +42,11 @@ public class SalvoController {
     }
 
 
-    @Autowired
-    private GamePlayerRepository gamePlayerRepository;
-
-
     @RequestMapping("/game_view/{gameplayerID}")
     private Map<String, Object> getGamePlayers(@PathVariable long gameplayerID) {
         return gamePlayerRepository.findById(gameplayerID).get().makeGameViewDTO();
     }
+
 
 }
 

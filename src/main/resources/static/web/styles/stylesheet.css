@@ -8,3 +8,16 @@ table th, td{
 .selected{
     background-color: #4CAF50;
 }
+
+.grid{
+    display: inline-block;
+
+
+}
+
+#grid2{
+}
+
+.fired{
+    background-color: red;
+}
