@@ -28,9 +28,12 @@ function mapScore(game){
 function mapear(game) {
 
     var jugadores = game.players;
+
     for (var i = 0; i < jugadores.length; i++) {
         console.log(jugadores)
     }
+
+
 
 
 }
