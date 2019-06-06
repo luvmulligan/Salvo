@@ -34,10 +34,12 @@ public class GamePlayer {
 
     private LocalDateTime joinDate;
 
+
+
     public GamePlayer() {
     }
 
-    public GamePlayer(Player player, Game game, Set<Ship> ships, Set<Salvo> salvos) {
+    public GamePlayer(Player player, Game game, Set<Ship> ships, Set<Salvo> salvos){
         this.player = player;
         this.game = game;
         this.addShips(ships);
@@ -46,9 +48,12 @@ public class GamePlayer {
     }
 
 
+
+
     public void addShips(Set<Ship> ships) {
         ships.forEach(this::addShip);
     }
+
 
     public void addShip(Ship ship) {
         ship.setGamePlayer(this);
@@ -60,6 +65,7 @@ public class GamePlayer {
         salvos.forEach(this::addSalvo);
     }
 
+
     public void addSalvo(Salvo salvo) {
         salvo.setGamePlayer(this);
         this.salvos.add(salvo);
@@ -68,6 +74,7 @@ public class GamePlayer {
     public Player getPlayer() {
         return player;
     }
+
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -80,6 +87,11 @@ public class GamePlayer {
     public void setGame(Game game) {
         this.game = game;
     }
+
+    public void setScore(Score score){
+    }
+
+
 
     public LocalDateTime getJoinDate() {
         return joinDate;
@@ -96,12 +108,23 @@ public class GamePlayer {
     public Set<Salvo> getSalvos() {
         return salvos;
     }
+    public Score getScore(){
+        return player.getScore(this.game);
+    }
+
+
+
+
 
     public Map<String, Object> makeGamePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", id);
         dto.put("created", game.getCreationDate());
         dto.put("player", player.makePlayerDTO());
+        if(getScore() != null)
+            dto.put("score", getScore().makeScoreDTO());
+        else
+            dto.put("score", null);
         return dto;
     }
 

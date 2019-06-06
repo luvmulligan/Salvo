@@ -21,9 +21,8 @@ public class Game {
     @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     private Set<GamePlayer> gamePlayers = new HashSet<>();
 
-
-
     private LocalDateTime creationDate;
+
 
     public Game() {
     }
@@ -51,6 +50,18 @@ public class Game {
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
+
+    public void setScore(Score score){
+
+    }
+    public void getScore(Score score){
+
+    }
+
+
+
+
+
 
     public Map<String, Object> makeGameDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();

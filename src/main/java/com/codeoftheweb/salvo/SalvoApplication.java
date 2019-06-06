@@ -17,7 +17,7 @@ public class SalvoApplication {
 		SpringApplication.run(SalvoApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository, SalvoRepository salvoRepository) {
+	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository, SalvoRepository salvoRepository, ScoreRepository scoreRepository) {
 		return (args) -> {
 			// save a couple of players
 			Player player1 = new Player("j.bauer@ctu.gov");
@@ -94,8 +94,6 @@ public class SalvoApplication {
 			salvo8.add(new Salvo("1", Arrays.asList("B5", "C6", "H1")));
 			salvo8.add(new Salvo("2", Arrays.asList("C5", "C7", "D5")));
 
-
-
 			playerRepository.save(player1);
 			playerRepository.save(player2);
 			playerRepository.save(player3);
@@ -124,6 +122,26 @@ public class SalvoApplication {
 			gamePlayerRepository.save(new GamePlayer(player2, game4, ships7, salvo7));
 			gamePlayerRepository.save(new GamePlayer(player1, game4, ships8, salvo8));
 
+			// Add new Scores
+
+			Score score1 = new Score(player1, game1, 1d);
+			Score score2 = new Score(player2, game1, 0d);
+			Score score3 = new Score(player3, game2, 0.5);
+			Score score4 = new Score(player4, game2, 0.5);
+			Score score5 = new Score(player2, game3, 1d);
+			Score score6 = new Score(player4, game3, 0d);
+			Score score7 = new Score(player2, game4, 0.5);
+			Score score8 = new Score(player1, game4, 0.5);
+
+
+			scoreRepository.save(score1);
+			scoreRepository.save(score2);
+			scoreRepository.save(score3);
+			scoreRepository.save(score4);
+			scoreRepository.save(score5);
+			scoreRepository.save(score6);
+			scoreRepository.save(score7);
+			scoreRepository.save(score8);
 
 		};
 	}

@@ -103,6 +103,7 @@ fetch( "/api/game_view/"+gpID).then(function(response) {
     selectShips(json.Ships);
     gamePlayers(json.Gameplayers);
     shotFired(json.Salvos);
+
     //shotTaken(json.Salvos);
 
 //Obtain ship locations and print them in the grid
@@ -112,6 +113,7 @@ fetch( "/api/game_view/"+gpID).then(function(response) {
 });
 
 document.getElementById("date").innerHTML = new Date().toDateString();
+
 
 
 function selectShips (Ships){
@@ -166,5 +168,5 @@ function gamePlayers (Gameplayers){
 
 
 
-
+//Leaderboard
 

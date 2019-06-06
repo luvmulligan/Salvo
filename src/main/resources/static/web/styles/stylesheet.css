@@ -21,3 +21,11 @@ table th, td{
 .fired{
     background-color: red;
 }
+
+#username1{
+    background-color: aquamarine;
+}
+
+#username2{
+    background-color: darkorange;
+}

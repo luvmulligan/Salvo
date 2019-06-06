@@ -39,6 +39,12 @@ public class Player {
         this.userName = userName;
     }
 
+    public Score getScore(Game game){
+        return scores.stream().filter(s -> s.getGame().getId() == game.getId()).findFirst().orElse(null);
+
+    }
+
+
     public Map<String, Object> makePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("username", userName);
