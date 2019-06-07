@@ -27,13 +27,38 @@ function mapScore(game){
 
 function mapear(game) {
 
+    var arrayPlayers = [
+        {
+            email: ""
+        }
+        ,
+        {
+            username: "",
+            ganados: 0,
+            empatados: 0
+        },
+        {
+            username: "",
+            ganados: 0,
+            empatados: 0
+        },
+        {
+            username: "",
+            ganados: 0,
+            empatados: 0
+        }
+    ]
+
+
+
+
     var jugadores = game.players;
+    var users = [];
 
     for (var i = 0; i < jugadores.length; i++) {
-        console.log(jugadores)
+     //console.log(jugadores);
+      console.log(jugadores[i].player.username);
     }
-
-
-
+ arrayPlayers.email = jugadores[i].player.username;
 
 }
