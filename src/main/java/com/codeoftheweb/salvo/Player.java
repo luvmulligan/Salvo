@@ -23,12 +23,14 @@ public class Player {
     private Set<Score> scores = new HashSet<>();
 
     private String userName;
+    private String password;
 
     public Player() {
     }
 
-    public Player(String userName) {
+    public Player(String userName, String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     public String getUserName() {
@@ -44,6 +46,13 @@ public class Player {
 
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Map<String, Object> makePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
