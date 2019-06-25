@@ -1,10 +1,10 @@
 var userData = [];
 
-$.getJSON( "http://localhost:8080/api/games", function( data ) {
-    $("#games").html(data.map(mapGame).join(""));
+$.getJSON( "/api/games", function( data ) {
+    $("#games").html(data.games.map(mapGame).join(""));
 
 
-    data.forEach(mapUsers);
+    data.games.forEach(mapUsers);
     console.table(userData);
 
 
@@ -23,7 +23,7 @@ $.getJSON( "http://localhost:8080/api/games", function( data ) {
 
 
 function mapGame(game){
-    return "<li>" + game.creation + ", " + game.players[0].player.username+ ", " + game.players[1].player.username+ "</li>"
+    return "<li>" + game.creation + ", " + game.players[0].player.name+ ", " + game.players[1].player.name+ "</li>"
 }
 
 
@@ -31,11 +31,11 @@ function mapUsers(game){
 
    game.players.forEach(function(gameplayer){
 
-    var indiceScore = userData.findIndex(findUserData,gameplayer.player.username);
+    var indiceScore = userData.findIndex(findUserData,gameplayer.player.name);
     if(indiceScore < 0){
         var score = {};
 
-        score.mail = gameplayer.player.username;
+        score.mail = gameplayer.player.name;
 
         if(gameplayer.score == 1.0){
             score.win = 1;
@@ -80,4 +80,18 @@ function findUserData(userData){
 
 function mapearTabla(userData) {
 return "<tr><td>" + userData.mail + "</td><td>" + userData.win + "</td><td>" + userData.tie + "</td><td>" + userData.lost + "</td><td>" + userData.total + "</td></tr>"
+}
+
+
+
+function login(evt) {
+  evt.preventDefault();
+  $.post("/api/login", { name: form["username"].value, pwd: form["password"].value}).done(function() { console.log("logged in!"); })
+};
+
+
+function logout(evt) {
+  evt.preventDefault();
+  $.post("/app/logout")
+   ;
 }

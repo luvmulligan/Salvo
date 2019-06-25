@@ -56,7 +56,8 @@ public class Player {
 
     public Map<String, Object> makePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("username", userName);
+        dto.put("id", id);
+        dto.put("name", userName);
         return dto;
     }
 }

@@ -7,11 +7,23 @@
     <title>Salvo!</title>
 </head>
 <body>
-
+<div class="container">
 
 <h1>Salvo!</h1>
+<div class="row">
+    <form id="login-form" onsubmit="alert('logged in!'), return false">
+        <label>Name: <input type="text" name="username"></label>
+        <label>Password: <input type="text" name="password"></label>
+        <form id="login-form" onsubmit="return false">
+           <input type="submit" value="Login">
+    </form>
+
+
+</div>
+
 <ol id="games">
 </ol>
+
 
 <div class="table">
 
@@ -32,7 +44,7 @@
     </tbody>
 
     </table>
-
+</div>
 
 </div>
 
