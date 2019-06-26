@@ -12,9 +12,18 @@
 <div class="container">
     <div class="row">
         <div class="col">
+
 <h1>Ship locations</h1>
 
-<p>Welcome <span id="username1"></span>! Today is <span id="date"></span>
+            <form id="logout-form">
+
+                <button onclick="logout(event)">Log Out</button>
+
+
+            </form>
+
+
+            <p>Welcome <span id="username1"></span>! Today is <span id="date"></span>
 </p>
 <p>
  Playing against: <span id="username2"></span></p>
@@ -34,6 +43,7 @@
     </tbody></table>
 
 
+
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -45,5 +55,6 @@
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
 <script src="Scripts/game.js"></script>
+
 </body>
 </html>

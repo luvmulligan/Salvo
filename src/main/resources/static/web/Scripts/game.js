@@ -167,6 +167,9 @@ function gamePlayers (Gameplayers){
 }
 
 
+function logout(evt) {
+  evt.preventDefault();
+  var form = evt.target.form;
+ $.post("/api/logout").done(function() { console.log("logged out") });
 
-//Leaderboard
-
+}

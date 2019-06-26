@@ -11,11 +11,12 @@
 
 <h1>Salvo!</h1>
 <div class="row">
-    <form id="login-form" onsubmit="alert('logged in!'), return false">
+    <form id="login-form">
         <label>Name: <input type="text" name="username"></label>
-        <label>Password: <input type="text" name="password"></label>
-        <form id="login-form" onsubmit="return false">
-           <input type="submit" value="Login">
+        <label>Password: <input type="password" name="password"></label>
+        <button onclick="login(event)">Log In</button>
+
+
     </form>
 
 

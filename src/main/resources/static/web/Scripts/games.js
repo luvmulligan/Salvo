@@ -82,16 +82,14 @@ function mapearTabla(userData) {
 return "<tr><td>" + userData.mail + "</td><td>" + userData.win + "</td><td>" + userData.tie + "</td><td>" + userData.lost + "</td><td>" + userData.total + "</td></tr>"
 }
 
-
-
 function login(evt) {
   evt.preventDefault();
-  $.post("/api/login", { name: form["username"].value, pwd: form["password"].value}).done(function() { console.log("logged in!"); })
-};
-
-
-function logout(evt) {
-  evt.preventDefault();
-  $.post("/app/logout")
-   ;
+  var form = evt.target.form;
+  $.post("/api/login",
+         { name: form["username"].value,
+           pwd: form["password"].value })
+   .done(function() { console.log("logged in!")});
 }
+
+
+
