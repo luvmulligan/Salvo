@@ -9,7 +9,7 @@ table th, td{
     background-color: #4CAF50;
 }
 
-.grid{
+._grid{
     display: inline-block;
 
 
@@ -29,3 +29,8 @@ table th, td{
 #username2{
     background-color: darkorange;
 }
+
+.hidden {
+display: none;
+}
+

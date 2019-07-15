@@ -51,35 +51,38 @@ public class SalvoApplication {
 			Set<Ship> ships1 = new HashSet<>();
 			ships1.add(new Ship ("Destroyer", Arrays.asList("H2", "H3", "H4")));
 			ships1.add(new Ship ("Submarine", Arrays.asList("E1", "F1", "G1")));
-			ships1.add(new Ship ("Patrol Boat", Arrays.asList("B4", "B5")));
+			ships1.add(new Ship ("PatrolBoat", Arrays.asList("B4", "B5")));
 
 			Set<Ship> ships2 = new HashSet<>();
 			ships2.add(new Ship ("Destroyer", Arrays.asList("B5", "C5", "D5")));
-			ships2.add(new Ship ("Patrol Boat", Arrays.asList("F1", "F2")));
+			ships2.add(new Ship ("PatrolBoat", Arrays.asList("F1", "F2")));
 
 			Set<Ship> ships3 = new HashSet<>();
 			ships3.add(new Ship ("Destroyer", Arrays.asList("B5", "C5", "D5")));
-			ships3.add(new Ship ("Patrol Boat", Arrays.asList("C6", "C7")));
+			ships3.add(new Ship ("PatrolBoat", Arrays.asList("C6", "C7")));
 
 			Set<Ship> ships4 = new HashSet<>();
 			ships4.add(new Ship ("Submarine", Arrays.asList("A2", "A3", "A4")));
-			ships4.add(new Ship ("Patrol Boat", Arrays.asList("G6", "H6")));
+			ships4.add(new Ship ("PatrolBoat", Arrays.asList("G6", "H6")));
 
 			Set<Ship> ships5 = new HashSet<>();
 			ships5.add(new Ship ("Destroyer", Arrays.asList("B5", "C5", "D5")));
-			ships5.add(new Ship ("Patrol Boat", Arrays.asList("C6", "C7")));
+			ships5.add(new Ship ("PatrolBoat", Arrays.asList("C6", "C7")));
 
 			Set<Ship> ships6 = new HashSet<>();
 			ships6.add(new Ship ("Submarine", Arrays.asList("A2", "A3", "A4")));
-			ships6.add(new Ship ("Patrol Boat", Arrays.asList("G6", "H6")));
+			ships6.add(new Ship ("PatrolBoat", Arrays.asList("G6", "H6")));
 
 			Set<Ship> ships7 = new HashSet<>();
 			ships7.add(new Ship ("Destroyer", Arrays.asList("B5", "C5", "D5")));
-			ships7.add(new Ship ("Patrol Boat", Arrays.asList("C6", "C7")));
+			ships7.add(new Ship ("PatrolBoat", Arrays.asList("C6", "C7")));
 
 			Set<Ship> ships8 = new HashSet<>();
 			ships8.add(new Ship ("Submarine", Arrays.asList("A2", "A3", "A4")));
-			ships8.add(new Ship ("Patrol Boat", Arrays.asList("G6", "H6")));
+			ships8.add(new Ship ("PatrolBoat", Arrays.asList("F6", "F7")));
+			ships8.add(new Ship ("Destroyer", Arrays.asList("D6", "D7", "D8")));
+			ships8.add(new Ship ("Carrier", Arrays.asList("J1", "J2", "J3", "J4", "J5")));
+			ships8.add(new Ship ("Battleship", Arrays.asList("A7", "A8", "A9", "A10" )));
 
 			//Add new Salvoes
 
@@ -125,12 +128,17 @@ public class SalvoApplication {
 			Game game2 = new Game(LocalDateTime.now().plusHours(1));
 			Game game3 = new Game(LocalDateTime.now().plusHours(2));
 			Game game4 = new Game (LocalDateTime.now().plusHours(3));
+			Game game5 = new Game (LocalDateTime.now().plusHours(3));
+
+
 
 
 			gameRepository.save(game1);
 			gameRepository.save(game2);
 			gameRepository.save(game3);
 			gameRepository.save(game4);
+			gameRepository.save(game5);
+
 
 			// Add new Gameplayers
 
@@ -142,6 +150,7 @@ public class SalvoApplication {
 			gamePlayerRepository.save(new GamePlayer(player4, game3, ships6, salvo6));
 			gamePlayerRepository.save(new GamePlayer(player2, game4, ships7, salvo7));
 			gamePlayerRepository.save(new GamePlayer(player1, game4, ships8, salvo8));
+			gamePlayerRepository.save(new GamePlayer(player1, game5, new HashSet<>(), new HashSet<>()));
 
 			// Add new Scores
 

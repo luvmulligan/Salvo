@@ -53,7 +53,7 @@ public class Ship {
     public Map<String, Object> makeShipDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("locations", shipLocations);
-        dto.put ("ships", type);
+        dto.put ("type", type);
         return dto;
 
     }

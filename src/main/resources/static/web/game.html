@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="dist/normalize.css" />
+    <link rel="stylesheet" href="dist/gridstack.css" />
+    <link rel="stylesheet" href="dist/gridstack-extra.css" />
+    <link rel="stylesheet" href="dist/style.css" />
     <link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,15 +33,21 @@
  Playing against: <span id="username2"></span></p>
     </div>
     </div>
-<div class="grid" id="grid1">
+
+    <div class="grid-ships">
+        <!-- div que usa la librería gridstack grid-stack-10 se indica que son 10 columnas-->
+        <div id="grid" class="grid-stack grid-stack-10">
+
+        </div>
+    </div>
+
+
+<div class="_grid" id="grid1">
     <table border="1" class="table"><tbody>
 
     </tbody></table>
-
-
 </div>
-
-<div class="grid" id="grid2">
+<div class="_grid" id="grid2">
     <table border="1" class="table"><tbody>
 
     </tbody></table>
@@ -54,6 +64,13 @@
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
+
+<script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+<script src="dist/jquery-ui.min.js"></script>
+<script src="dist/gridstack.js"></script>
+<script src="dist/gridstack.jQueryUI.js"></script>
+<script src="dist/jquery.ui.touch-punch.min.js"></script>
 <script src="Scripts/game.js"></script>
 
 </body>

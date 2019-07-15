@@ -1,8 +1,14 @@
 var userData = [];
+var playerOne = null;
 
 $.getJSON( "/api/games", function( data ) {
+    playerOne = data.player;
     $("#games").html(data.games.map(mapGame).join(""));
+    if(playerOne == null){
+        $("#login-form").removeClass("hidden");
+          $("#logout").addClass("hidden");
 
+    };
 
     data.games.forEach(mapUsers);
     console.table(userData);
@@ -23,7 +29,15 @@ $.getJSON( "/api/games", function( data ) {
 
 
 function mapGame(game){
-    return "<li>" + game.creation + ", " + game.players[0].player.name+ ", " + game.players[1].player.name+ "</li>"
+    var listGame = "<li>" + game.creation + "<ul>";
+    game.players.forEach(function(gamePlayer){
+        if(playerOne != null && playerOne.id === gamePlayer.player.id)
+            listGame += "<li> " + gamePlayer.player.name + '<a href="game.html?gp=' + gamePlayer.gpid + '"><button data-name=' + gamePlayer.gpid + "> Join Game </button></a></li>";
+        else
+            listGame += "<li> " + gamePlayer.player.name + "</li>";
+    })
+    listGame += "</ul></li>";
+    return listGame;
 }
 
 
@@ -88,8 +102,25 @@ function login(evt) {
   $.post("/api/login",
          { name: form["username"].value,
            pwd: form["password"].value })
-   .done(function() { console.log("logged in!")});
+   .done(function() { location.reload();});
 }
 
+function signUp(evt) {
+  evt.preventDefault();
+  var form = evt.target.form;
+  $.post("/api/players",
+         { name: form["username"].value,
+           pwd: form["password"].value })
+   .done(function() { location.reload(); console.log("logged in!")})
+   .fail(function() { alert("name already in use")}
 
+   );
+}
 
+function logout(evt) {
+  evt.preventDefault();
+  var form = evt.target.form;
+ $.post("/api/logout").done(function() { console.log("logged out") });
+ location.reload();
+
+}

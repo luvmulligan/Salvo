@@ -118,7 +118,7 @@ public class GamePlayer {
 
     public Map<String, Object> makeGamePlayerDTO() {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", id);
+        dto.put("gpid", id);
         dto.put("created", game.getCreationDate());
         dto.put("player", player.makePlayerDTO());
         if(getScore() != null)

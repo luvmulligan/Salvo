@@ -100,7 +100,24 @@ fetch( "/api/game_view/"+gpID).then(function(response) {
     throw new Error(response.statusText);
 
 }).then(function(json) {
-    selectShips(json.Ships);
+    if(json.Ships.length <= 0){
+        createGrid(false);
+        grid.addWidget($('<div id="Battleship"><div class="grid-stack-item-content BattleshipHorizontal"></div><div/>'),
+                          0, 0, 4, 1, true);
+        grid.addWidget($('<div id="PatrolBoat"><div class="grid-stack-item-content PatrolBoatHorizontal"></div><div/>'),
+                                  0, 0, 2, 1, true);
+        grid.addWidget($('<div id="Carrier"><div class="grid-stack-item-content CarrierHorizontal"></div><div/>'),
+                          0, 0, 5, 1, true);
+        grid.addWidget($('<div id="Destroyer"><div class="grid-stack-item-content DestroyerHorizontal"></div><div/>'),
+                                  0, 0, 4, 1, true);
+        grid.addWidget($('<div id="Submarine"><div class="grid-stack-item-content SubmarineHorizontal"></div><div/>'),
+                                  0, 0, 3, 1, true);
+        addWidgetEvents(grid);
+    }else {
+        createGrid(true);
+        selectShips(json.Ships);
+    }
+
     gamePlayers(json.Gameplayers);
     shotFired(json.Salvos);
 
@@ -119,11 +136,17 @@ document.getElementById("date").innerHTML = new Date().toDateString();
 function selectShips (Ships){
     Ships.forEach(function(ship){
         console.log(ship);
+
+
         ship.locations.forEach(function (location) {
             console.log(location);
             document.getElementById(location).classList.add("selected");
+
         })
+          addWidget(ship);
+
     })
+    addWidgetEvents(grid);
 }
 
 function shotFired(Salvos){
@@ -153,17 +176,19 @@ function shotFired(Salvos){
 function gamePlayers (Gameplayers){
     Gameplayers.forEach(function(gameplayer){
         console.log(gameplayer);
-        if(gameplayer.id == gpID){
+        if(gameplayer.gpid == gpID){
             console.log(gameplayer.player)
             player = gameplayer.player;
 
-            document.getElementById("username1").innerHTML = gameplayer.player.username;
+            document.getElementById("username1").innerHTML = gameplayer.player.name;
         } else {
             enemy = gameplayer.player;
-            document.getElementById("username2").innerHTML = gameplayer.player.username;
+            document.getElementById("username2").innerHTML = gameplayer.player.name;
         }
 
+
 })
+
 }
 
 
@@ -171,5 +196,139 @@ function logout(evt) {
   evt.preventDefault();
   var form = evt.target.form;
  $.post("/api/logout").done(function() { console.log("logged out") });
+  window.open("/web/games.html", "_self");
+
 
 }
+
+
+function createGrid(staticGrid) {
+    var options = {
+        //grilla de 10 x 10
+        width: 10,
+        height: 10,
+        //separacion entre elementos (les llaman widgets)
+        verticalMargin: 0,
+        //altura de las celdas
+        cellHeight: 45,
+        //desabilitando el resize de los widgets
+        disableResize: true,
+        //widgets flotantes
+		float: true,
+        //removeTimeout: 100,
+        //permite que el widget ocupe mas de una columna
+        disableOneColumnMode: true,
+        //false permite mover, true impide
+        staticGrid: staticGrid,
+        //activa animaciones (cuando se suelta el elemento se ve más suave la caida)
+        animate: true
+    }
+    //se inicializa el grid con las opciones
+    $('.grid-stack').gridstack(options);
+      grid = $('#grid').data('gridstack');
+        //agregando un elmento(widget) desde el javascript
+
+
+}
+
+function addWidget (ship){
+    var searchChar = ship.locations[0].slice(0, 1);
+           var secondChar = ship.locations[1].slice(0, 1);
+           if ( searchChar === secondChar ) {
+               ship.position = "Horizontal";
+           } else {
+               ship.position = "Vertical";
+           }
+           for (var i=0; i < ship.locations.length; i++) {
+               ship.locations[i] = ship.locations[i].replace(/A/g, '0');
+               ship.locations[i] = ship.locations[i].replace(/B/g, '1');
+               ship.locations[i] = ship.locations[i].replace(/C/g, '2');
+               ship.locations[i] = ship.locations[i].replace(/D/g, '3');
+               ship.locations[i] = ship.locations[i].replace(/E/g, '4');
+               ship.locations[i] = ship.locations[i].replace(/F/g, '5');
+               ship.locations[i] = ship.locations[i].replace(/G/g, '6');
+               ship.locations[i] = ship.locations[i].replace(/H/g, '7');
+               ship.locations[i] = ship.locations[i].replace(/I/g, '8');
+               ship.locations[i] = ship.locations[i].replace(/J/g, '9');
+           }
+           var yInGrid = parseInt(ship.locations[0].slice(0, 1));
+           var xInGrid = parseInt(ship.locations[0].slice(1, 3)) - 1;
+
+
+
+                       if (ship.type === "PatrolBoat") {
+                       if (ship.position === "Horizontal") {
+                       grid.addWidget($('<div id="PatrolBoat"><div class="grid-stack-item-content PatrolBoatHorizontal"></div><div/>'),
+                       xInGrid, yInGrid, 2, 1, false);
+                       } else if (ship.position === "Vertical") {
+                       grid.addWidget($('<div id="PatrolBoat"><div class="grid-stack-item-content PatrolBoatVertical"></div><div/>'),
+                       xInGrid, yInGrid, 1, 2, false);
+                        }
+                     }
+
+                       if (ship.type === "Destroyer") {
+                       if (ship.position === "Horizontal") {
+                        grid.addWidget($('<div id="Destroyer"><div class="grid-stack-item-content DestroyerHorizontal"></div><div/>'),
+                        xInGrid, yInGrid, 3, 1, false);
+                        } else if (ship.position === "Vertical") {
+                         grid.addWidget($('<div id="Destroyer"><div class="grid-stack-item-content DestroyerVertical"></div><div/>'),
+                         xInGrid, yInGrid, 1, 3, false);
+                         }
+                        }
+                        if (ship.type === "Battleship") {
+                        if (ship.position === "Horizontal") {
+                        grid.addWidget($('<div id="Battleship"><div class="grid-stack-item-content BattleshipHorizontal"></div><div/>'),
+                        xInGrid, yInGrid, 4, 1, false);
+                        } else if (ship.position === "Vertical") {
+                        grid.addWidget($('<div id="Battleship"><div class="grid-stack-item-content BattleshipVertical"></div><div/>'),
+                        xInGrid, yInGrid, 1, 4, false);
+                   }
+                   }
+                   if (ship.type === "Submarine") {
+                   if (ship.position === "Horizontal") {
+                   grid.addWidget($('<div id="Submarine"><div class="grid-stack-item-content SubmarineHorizontal"></div><div/>'),
+                   xInGrid, yInGrid, 3, 1, false);
+                   } else if (ship.position === "Vertical") {
+                  grid.addWidget($('<div id="Submarine"><div class="grid-stack-item-content SubmarineVertical"></div><div/>'),
+                 xInGrid, yInGrid, 1, 3, false);
+               }
+               }
+               if (ship.type === "Carrier") {
+                if (ship.position === "Horizontal") {
+                 grid.addWidget($('<div id="Carrier"><div class="grid-stack-item-content CarrierHorizontal"></div><div/>'),
+                  xInGrid, yInGrid, 5, 1, false);
+                } else if (ship.position === "Vertical") {
+                grid.addWidget($('<div id="Carrier"><div class="grid-stack-item-content CarrierVertical"></div><div/>'),
+                xInGrid, yInGrid, 1, 5, false);
+             }
+             }
+
+}
+function addWidgetEvents(grid){
+    $(".grid-stack-item").click(function() {
+       var h = parseInt($(this).attr("data-gs-height"));
+       var w = parseInt($(this).attr("data-gs-width"));
+       var posX = parseInt($(this).attr("data-gs-x"));
+       var posY = parseInt($(this).attr("data-gs-y"));
+
+       // Rotate Ships Mechanics...
+
+       if (w>h) {
+           if ( grid.isAreaEmpty(posX, posY+1, h, w-1) && posX+h<=10 && posY+w<=10 ) {
+               grid.update($(this), posX, posY, h, w);
+               $(this).children('.grid-stack-item-content').removeClass($(this).attr("id") + 'Horizontal');
+                              $(this).children('.grid-stack-item-content').addClass($(this).attr("id") + 'Vertical');
+           }
+
+       }
+       else if (grid.isAreaEmpty(posX + 1, posY, w, h - 1) && posX + w <= 10 && posY + h <= 10) {
+                           grid.update($(this), posX, posY, h, w);
+                           $(this).children('.grid-stack-item-content').removeClass($(this).attr("id") + 'Vertical');
+                                          $(this).children('.grid-stack-item-content').addClass($(this).attr("id") + 'Horizontal');
+                       }
+
+           })
+
+}
+
+
