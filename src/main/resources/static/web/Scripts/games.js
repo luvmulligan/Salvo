@@ -21,7 +21,6 @@ $.getJSON( "/api/games", function( data ) {
 
 
 
-
 });
 
 
@@ -32,13 +31,17 @@ function mapGame(game){
     var listGame = "<li>" + game.creation + "<ul>";
     game.players.forEach(function(gamePlayer){
         if(playerOne != null && playerOne.id === gamePlayer.player.id)
-            listGame += "<li> " + gamePlayer.player.name + '<a href="game.html?gp=' + gamePlayer.gpid + '"><button data-name=' + gamePlayer.gpid + "> Join Game </button></a></li>";
+            listGame += "<li> " + gamePlayer.player.name + '<a href="game.html?gp=' + gamePlayer.gpid + '"><button data-name=' + gamePlayer.gpid + "> Enter Game </button></a></li>";
         else
             listGame += "<li> " + gamePlayer.player.name + "</li>";
     })
     listGame += "</ul></li>";
     return listGame;
+
+
 }
+
+
 
 
 function mapUsers(game){
@@ -124,3 +127,18 @@ function logout(evt) {
  location.reload();
 
 }
+
+function createGame(event){
+event.preventDefault();
+var button = event.target.button;
+ $.post("/api/games").done(function(data) {
+    location.href = "game.html?gp=" +  data.gpid;
+ })
+ console.log("new game created")
+
+ };
+
+
+
+
+
